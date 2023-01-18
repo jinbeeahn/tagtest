@@ -8,7 +8,7 @@
     "deploy": "np --no-yarn --no-tests --no-2fa --verbose --no-publish && npm publish",
     "check-sandbox": "if [[ $(git branch --list sandbox) ]]; then npm run delete-sandbox; fi",
     "delete-sandbox": "git branch -D sandbox && git push origin :sandbox",
-    "update-sandbox": " npm run check-sandbox && git checkout -b sandbox && git push origin refs/tags/sandbox",
+    "update-sandbox": " npm run check-sandbox && git checkout -b sandbox && git push --set-upstream origin sandbox",
     "beta-deploy": "np prefetch --no-yarn --no-tests --no-2fa --verbose --no-publish --any-branch --tag=beta --preid=beta  && npm publish --tag=beta --preid=beta",
     "sandbox-deploy": "np $(semver $(git describe --tags --abbrev=0) --increment prerelease --preid=sandbox) --no-yarn --no-tests --no-2fa --verbose --no-publish --any-branch  --contents=sandbox  && npm publish --tag=sandbox",
     "bob-deploy": "np --no-yarn --no-tests --no-2fa --verbose --no-publish --any-branch --tag=bob  && npm publish --tag=bob",
