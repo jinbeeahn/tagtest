@@ -10,7 +10,7 @@
     "delete-sandbox": "git branch -D sandbox && git push origin :sandbox",
     "update-sandbox": " npm run check-sandbox && git checkout -b sandbox && git push --set-upstream origin sandbox",
     "sandbox-deploy": "np $(semver $(npm run get-tag) --increment prerelease --preid=sandbox) --no-yarn --no-tests --no-2fa --verbose --no-publish --any-branch  --contents=sandbox  && npm publish --tag=sandbox",
-    "sandbox-lerna": "lerna version $(semver $(npm run get-tag) --increment prerelease --preid=sandbox)",
+    "sandbox-lerna": "lerna version $(npm run get-tag) --preid sandbox prepatch",
     "get-tag": "if [[ $(git tag --sort=-v:refname | grep -m1 sandbox) ]]; then git tag --sort=-v:refname | grep -m1 sandbox; else git tag --sort=-v:refname | head -n 1; fi"
   },
   "author": "",
