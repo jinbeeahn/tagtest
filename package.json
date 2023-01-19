@@ -7,13 +7,11 @@
     "test": "echo \"Error: no test specified\"",
     "deploy": "np --no-yarn --no-tests --no-2fa --verbose --no-publish && npm publish",
     "check-sandbox": "if [[ $(git branch --list sandbox) ]]; then npm run delete-sandbox-tag && npm run delete-sandbox; fi",
-    "delete-sandbox-tag": "git checkout sandbox && git tag -d $(git describe --tags --abbrev=0) && git checkout -",
     "delete-sandbox": "git branch -D sandbox && git push origin :sandbox",
     "update-sandbox": " npm run check-sandbox && git checkout -b sandbox && git push --set-upstream origin sandbox",
-    "beta-deploy": "np prefetch --no-yarn --no-tests --no-2fa --verbose --no-publish --any-branch --tag=beta --preid=beta  && npm publish --tag=beta --preid=beta",
-    "sandbox-deploy": "np $(semver $(git tag --sort=-v:refname | grep -m1 sandbox) --increment prerelease --preid=sandbox) --no-yarn --no-tests --no-2fa --verbose --no-publish --any-branch  --contents=sandbox  && npm publish --tag=sandbox",
-    "bob-deploy": "np --no-yarn --no-tests --no-2fa --verbose --no-publish --any-branch --tag=bob  && npm publish --tag=bob",
-    "shit-deploy": "np --no-yarn --no-tests --no-2fa --verbose --no-publish --any-branch --tag=bob  && npm publish --tag=bob"
+    "sandbox-deploy": "np $(semver $(npm run get-tag) --increment prerelease --preid=sandbox) --no-yarn --no-tests --no-2fa --verbose --no-publish --any-branch  --contents=sandbox  && npm publish --tag=sandbox",
+    "sandbox-lerna": "lerna version $(semver $(npm run get-tag) --increment prerelease --preid=sandbox)",
+    "get-tag": "if [[ $(git tag --sort=-v:refname | grep -m1 sandbox) ]]; then git tag --sort=-v:refname | grep -m1 sandbox; else git tag --sort=-v:refname | head -n 1; fi"
   },
   "author": "",
   "license": "ISC",
